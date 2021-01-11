@@ -2,7 +2,7 @@
 
 The following are the components you will need to set-up if you want to run the entire purpleteam solution `local`ly.
 
-If you can't be bothered with all this work, then use the purpleteam-labs `cloud` environment. Head to the [quick-start page](https://gitlab.com/purpleteam-labs/purpleteam/-/wikis/quick-start).
+If you can't be bothered with all this work, then use the purpleteam-labs `cloud` environment. Head to the [quick-start page](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/quick-start.md).
 
 # Your System Under Test (SUT)
 
@@ -37,19 +37,19 @@ Obviously you are going to need a web application that you want to put under tes
      ```shell
      docker-compose up
      ```
-2. An alternative is to spin up [purpleteam-iac-sut](https://gitlab.com/purpleteam-labs/purpleteam-iac-sut). Purpleteam-labs use this for both `local` and `cloud` testing
+2. An alternative is to spin up [purpleteam-iac-sut](https://github.com/purpleteam-labs/purpleteam-iac-sut). Purpleteam-labs use this for both `local` and `cloud` testing
 
 # Lambda functions
 
-Details [here](https://gitlab.com/purpleteam-labs/purpleteam-lambda)
+Details [here](https://github.com/purpleteam-labs/purpleteam-lambda)
 
 # Stage Two containers
 
-Details [here](https://gitlab.com/purpleteam-labs/purpleteam-s2-containers), along with information on how to debug and gain insights into what is happening inside the containers.
+Details [here](https://github.com/purpleteam-labs/purpleteam-s2-containers), along with information on how to debug and gain insights into what is happening inside the containers.
 
 # Orchestrator
 
-Details [here](https://gitlab.com/purpleteam-labs/purpleteam-orchestrator)
+Details [here](https://github.com/purpleteam-labs/purpleteam-orchestrator)
 
 # Testers
 
@@ -59,16 +59,16 @@ Additional Testers can be added by community contributors.
 
 ## Application Scanner
 
-Details [here](https://gitlab.com/purpleteam-labs/purpleteam-app-scanner)
+Details [here](https://github.com/purpleteam-labs/purpleteam-app-scanner)
 
 ## Server Scanner
 
-Todo:
+Details [here](https://github.com/purpleteam-labs/purpleteam-server-scanner)
 
 ## TLS Checker
 
-Todo:
+Details [here](https://github.com/purpleteam-labs/purpleteam-tls-checker)
 
 # purpleteam (CLI)
 
-Details [here](https://gitlab.com/purpleteam-labs/purpleteam)
+Details [here](https://github.com/purpleteam-labs/purpleteam)

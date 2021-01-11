@@ -13,7 +13,7 @@ Adding the `--debug` flag to the end of `sam local` commands can be helpful.
 
 We have tried [these launch configurations](https://aws.amazon.com/blogs/developer/introducing-launch-configurations-support-for-sam-debugging-in-the-aws-toolkit-for-vs-code/). The fact that you are expected to add your environment variables in yet another place, specify your runtime again, and add your event again, along with the fact that some environment variables would override and some wouldn't was enough to make us stick with our existing VS Code launch configurations.
 
-## Testing the [`provisionAppSlaves`](https://gitlab.com/purpleteam-labs/purpleteam-lambda/-/blob/master/local/app-slave-provisioner/index.js)
+## Testing the [`provisionAppSlaves`](https://github.com/purpleteam-labs/purpleteam-lambda/blob/main/local/app-slave-provisioner/index.js)
 
 1. Terminal 1: Run docker-compose-ui from the `purpleteam-s2-containers/` root directory. Run the following command:  
    ```shell
@@ -39,7 +39,7 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    * Using the `deprovisionS2Containers` Lambda as seen below
    * Possibly the easiest way: using the docker-compose-ui UI as discussed in the last step of the Full system run below
 
-## Testing the [`provisionSeleniumStandalones`](https://gitlab.com/purpleteam-labs/purpleteam-lambda/-/blob/master/local/selenium-standalone-provisioner/index.js)
+## Testing the [`provisionSeleniumStandalones`](https://github.com/purpleteam-labs/purpleteam-lambda/blob/main/local/selenium-standalone-provisioner/index.js)
 
 1. Terminal 1: Run docker-compose-ui from the `purpleteam-s2-containers/` root directory. Run the following command:  
    ```shell
@@ -65,7 +65,7 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    * Using the `deprovisionS2Containers` Lambda as seen below
    * Possibly the easiest way: using the docker-compose-ui UI as discussed in the last step of the Full system run below
 
-## Testing the [`deprovisionS2Containers`](https://gitlab.com/purpleteam-labs/purpleteam-lambda/-/blob/master/local/s2-deprovisioner/index.js)
+## Testing the [`deprovisionS2Containers`](https://github.com/purpleteam-labs/purpleteam-lambda/blob/main/local/s2-deprovisioner/index.js)
 
 1. Terminal 1: Run docker-compose-ui from the `purpleteam-s2-containers/` root directory. Run the following command:  
    ```shell
@@ -226,11 +226,11 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
    sam local start-lambda --host 172.25.0.1 --env-vars local/env.json --docker-network compose_pt-net
    ```  
    The `--host [gateway IP address of compose_pt-net]` is required to bind sam local to the user-defined bridge network `compose_pt-net` in order for it to be reachable from the app-scanner container.  
-   The following are the links that were useful for working this out: [`host.docker.internal`, `extra_hosts` and other comments from here down](https://github.com/docker/for-linux/issues/264#issuecomment-410048049), [docker-host container](https://github.com/qoomon/docker-host/blob/master/entrypoint.sh), [`extra_hosts` reference](https://docs.docker.com/compose/compose-file/#extra_hosts), along with creating the firewall rule as mentioned above, and testing connectivity as mentioned in the [Docker](local/local-Docker#docker-cli) page with shelling into running container
+   The following are the links that were useful for working this out: [`host.docker.internal`, `extra_hosts` and other comments from here down](https://github.com/docker/for-linux/issues/264#issuecomment-410048049), [docker-host container](https://github.com/qoomon/docker-host/blob/master/entrypoint.sh), [`extra_hosts` reference](https://docs.docker.com/compose/compose-file/#extra_hosts), along with creating the firewall rule as mentioned above, and testing connectivity as mentioned in the [Docker](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-Docker.md#docker-cli) page with shelling into running container
 
 3. Start your SUT (NodeGoat in this example):  
    
-   There are at least two options as mentioned in the [set-up](https://gitlab.com/purpleteam-labs/purpleteam/-/wikis/local/local-setup#your-system-under-test-sut)
+   There are at least two options as mentioned in the [set-up](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-setup.md#your-system-under-test-sut)
 <!---->
 4. Run the docker-compose:   
    
@@ -257,7 +257,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
 5. Start cli:  
    
    Depending on whether you are testing against a local copy of your containerised app or a copy hosted on the Internet will determin how you configure the cli (purpleteam) and the command you use to start testing. This example demonstrates the two options mentioned in step 3.  
-   By specifying the `local` environment, you are instructing the purpleteam CLI to use it's `config/config.local.json`, and communicate with the purpleteam back-end that you have already set-up and have running locally (step 4). If using the `cloud`, the back-end is all taken care of for you. You will also need to specify the location of the SUT in the Build User config (Job) that you provide to the CLI. Examples of these can be found in the [`testResources/jobs`](https://gitlab.com/purpleteam-labs/purpleteam/-/tree/master/testResources/jobs) directory:  
+   By specifying the `local` environment, you are instructing the purpleteam CLI to use it's `config/config.local.json`, and communicate with the purpleteam back-end that you have already set-up and have running locally (step 4). If using the `cloud`, the back-end is all taken care of for you. You will also need to specify the location of the SUT in the Build User config (Job) that you provide to the CLI. Examples of these can be found in the [`testResources/jobs`](https://github.com/purpleteam-labs/purpleteam/tree/main/testResources/jobs) directory:  
    1. Locally cloned copy of NodeGoat:  
    The SUT details in your Job will be as follows:  
     
@@ -266,7 +266,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
       "sutPort": 4000,
       "sutProtocol": "http",
       ```  
-   2. NodeGoat running on the Internet via [purpleteam-iac-sut](https://gitlab.com/purpleteam-labs/purpleteam-iac-sut):  
+   2. NodeGoat running on the Internet via [purpleteam-iac-sut](https://github.com/purpleteam-labs/purpleteam-iac-sut):  
    The SUT details in your Job will be as follows, with `<your-domain-name.com>` replaced with a domain you have set-up:  
    
       ```json

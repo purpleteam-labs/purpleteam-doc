@@ -46,17 +46,17 @@ https://github.com/jessfraz/dockerfiles
 
 ### purpleteam-orchestrator
  
-* [Dockerfile](https://gitlab.com/purpleteam-labs/purpleteam-orchestrator/blob/master/Dockerfile)
-* [compose files](https://gitlab.com/purpleteam-labs/purpleteam-orchestrator/tree/master/compose)
+* [Dockerfile](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/main/Dockerfile)
+* [compose files](https://github.com/purpleteam-labs/purpleteam-orchestrator/tree/main/compose)
 
 ### purpleteam-app-scanner
 
-* [Dockerfile](https://gitlab.com/purpleteam-labs/purpleteam-app-scanner/blob/master/Dockerfile)
+* [Dockerfile](https://github.com/purpleteam-labs/purpleteam-app-scanner/blob/main/Dockerfile)
 
 ### purpleteam-s2-containers
 
-* app-slave [docker-compose](https://gitlab.com/purpleteam-labs/purpleteam-s2-containers/blob/master/app-slave/docker-compose.yml)
-* selenium-standalone [docker-compose](https://gitlab.com/purpleteam-labs/purpleteam-s2-containers/blob/master/selenium-standalone/docker-compose.yml)
+* app-slave [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/app-slave/docker-compose.yml)
+* selenium-standalone [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/selenium-standalone/docker-compose.yml)
 
 # Useful commands
 
@@ -70,7 +70,7 @@ By default removes Containers for services defined in the Compose file, networks
 `docker-compose down --rmi all`  
 Removes `all` images used by any service
 
-## [docker CLI]()
+## docker CLI
 
 [Attach](https://docs.docker.com/engine/reference/commandline/attach/) to a running container:  
 `docker attach [container]`
@@ -148,7 +148,7 @@ On the `app-scanner` service of the orchestrator compose file, this was useful f
      `curl 172.25.0.1:3001`
    * Or use wget with no install  
      `wget -O - 172.25.0.1:3001`  
-2. Verifying connectivity with zap containers (Once the regex in the [docker-compose](https://gitlab.com/purpleteam-labs/purpleteam-s2-containers/blob/master/app-slave/docker-compose.yml) file of purpleteam-s2-containers app-slave was setup correctly, and of course watching what's happening in the zap container with the `docker logs` command), like so:  
+2. Verifying connectivity with zap containers (Once the regex in the [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/app-slave/docker-compose.yml) file of purpleteam-s2-containers app-slave was setup correctly, and of course watching what's happening in the zap container with the `docker logs` command), like so:  
   `curl appslave-zap_1:8080/UI`  
   `curl appslave-zap_2:8080/UI`  
   `curl 172.25.0.8:8080/UI`
