@@ -1,4 +1,6 @@
- Key                 | Value   
+# definitions
+
+Key                 | Value   
 ---------------------|---------
  _Build User_        | The person that: <ul><li>Creates the configuration for PurpleTeam</li><li>Creates test specifications if overriding desired</li></ul> 
  _Purple Team_       | Organisation with _Build Users_ that consume _PurpleTeam_ 
