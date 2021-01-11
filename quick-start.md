@@ -1,3 +1,5 @@
+# quick start
+
 The quickest way to get up and running with having your Web application under test is to:
 
 1. Obtain a purpleteam-labs `cloud` account (We manage everything in the cloud for you)
