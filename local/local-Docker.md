@@ -55,7 +55,7 @@ https://github.com/jessfraz/dockerfiles
 
 ### purpleteam-s2-containers
 
-* app-slave [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/app-slave/docker-compose.yml)
+* app-emissary [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/app-emissary/docker-compose.yml)
 * selenium-standalone [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/selenium-standalone/docker-compose.yml)
 
 # Useful commands
@@ -126,7 +126,7 @@ Use [dive](https://github.com/wagoodman/dive) to locate files in an image:
 Shell into running container:  
 `docker exec -it [container_id] [bash || /bin/ash]`
 
-Tail stdout (and stderr, as [Docker merges stdout and stderr](https://www.scalyr.com/blog/how-to-redirect-docker-logs-to-a-single-file)) of a container, useful for watching Zap, Selenium or any other Slave container logs:  
+Tail stdout (and stderr, as [Docker merges stdout and stderr](https://www.scalyr.com/blog/how-to-redirect-docker-logs-to-a-single-file)) of a container, useful for watching Zap, Selenium or any other Emissary container logs:  
 `docker logs --follow [container-name]`  
 If you would like to send those logs to a file as well:  
 `docker logs --follow [container-name] |tee output.log$(date '+%Y-%m-%d_%T')`  
@@ -148,9 +148,9 @@ On the `app-scanner` service of the orchestrator compose file, this was useful f
      `curl 172.25.0.1:3001`
    * Or use wget with no install  
      `wget -O - 172.25.0.1:3001`  
-2. Verifying connectivity with zap containers (Once the regex in the [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/app-slave/docker-compose.yml) file of purpleteam-s2-containers app-slave was setup correctly, and of course watching what's happening in the zap container with the `docker logs` command), like so:  
-  `curl appslave-zap_1:8080/UI`  
-  `curl appslave-zap_2:8080/UI`  
+2. Verifying connectivity with zap containers (Once the regex in the [docker-compose](https://github.com/purpleteam-labs/purpleteam-s2-containers/blob/main/app-emissary/docker-compose.yml) file of purpleteam-s2-containers app-emissary was setup correctly, and of course watching what's happening in the zap container with the `docker logs` command), like so:  
+  `curl appemissary-zap_1:8080/UI`  
+  `curl appemissary-zap_2:8080/UI`  
   `curl 172.25.0.8:8080/UI`
 
 

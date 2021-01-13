@@ -21,7 +21,7 @@ Or can disable key with `-config api.disablekey=true` instead
           "host": "172.17.0.3"
         }
       },
-      "slave": {
+      "emissary": {
         "protocol": "http",
         "ip": "172.17.0.2",
         ...
@@ -131,7 +131,7 @@ Or can disable key with `-config api.disablekey=true` instead
 # Orchestrator and testers in container using `orchestrator-testers-compose.yml`
 
 Assuming the `orchestrator-testers-compose.yml` has been run and the user-defined bridge network exists,  
-~/Source/purpleteam-app-slave `docker-compose up --scale zap=2`  
+~/Source/purpleteam-app-emissary `docker-compose up --scale zap=2`  
 The two Zap containers are then accessible at `http://172.25.0.2:8080/` and `http://172.25.0.3:8080/`
 
 

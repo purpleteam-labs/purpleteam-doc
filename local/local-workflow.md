@@ -1,6 +1,6 @@
 # local workflow
 
-# Setting up for running slaves
+# Setting up for running emissaries
 
 * Make sure there is a firewall rule to allow the app-scanner container access to the host for `sam local`
 * Make sure host [IP forwarding](https://www.dedoimedo.com/computers/docker-networking.html#mozTocId387645) is [turned on](https://linuxconfig.org/how-to-turn-on-off-ip-forwarding-in-linux)
@@ -13,7 +13,7 @@ Adding the `--debug` flag to the end of `sam local` commands can be helpful.
 
 We have tried [these launch configurations](https://aws.amazon.com/blogs/developer/introducing-launch-configurations-support-for-sam-debugging-in-the-aws-toolkit-for-vs-code/). The fact that you are expected to add your environment variables in yet another place, specify your runtime again, and add your event again, along with the fact that some environment variables would override and some wouldn't was enough to make us stick with our existing VS Code launch configurations.
 
-## Testing the [`provisionAppSlaves`](https://github.com/purpleteam-labs/purpleteam-lambda/blob/main/local/app-slave-provisioner/index.js)
+## Testing the [`provisionAppEmissaries`](https://github.com/purpleteam-labs/purpleteam-lambda/blob/main/local/app-emissary-provisioner/index.js)
 
 1. Terminal 1: Run docker-compose-ui from the `purpleteam-s2-containers/` root directory. Run the following command:  
    ```shell
@@ -23,16 +23,16 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    ```shell
    sam local start-lambda --host 172.25.0.1 --env-vars local/env.json --docker-network compose_pt-net
    ```
-3. Terminal 3: Invoke `provisionAppSlaves` from aws cli. From the `purpleteam-lambda/` root directory, start 10 containers:  
+3. Terminal 3: Invoke `provisionAppEmissaries` from aws cli. From the `purpleteam-lambda/` root directory, start 10 containers:  
    ```shell
-   aws lambda invoke --function-name "provisionAppSlaves" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"provisionViaLambdaDto":{"items": [{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""}]}}' local/app-slave-provisioner/out.txt
+   aws lambda invoke --function-name "provisionAppEmissaries" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"provisionViaLambdaDto":{"items": [{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""}]}}' local/app-emissary-provisioner/out.txt
    ```
 4. If you haven't already got `docker stats` running, verify that the containers were started with the following command:  
    ```shell
    docker container ls
    ```
 5. Bring containers down with one of the following options:
-   * The following command from the `purpleteam-s2-containers/app-slave/` directory:  
+   * The following command from the `purpleteam-s2-containers/app-emissary/` directory:  
      ```shell
      docker-compose down
      ```
@@ -51,7 +51,7 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    ```
 3. Terminal 3: Invoke `provisionSeleniumStandalones` from aws cli. From the `purpleteam-lambda/` root directory, start 10 containers:  
    ```shell
-   aws lambda invoke --function-name "provisionSeleniumStandalones" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"provisionViaLambdaDto":{"items": [{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"chrome", "appSlaveContainerName":"", "seleniumContainerName":""}]}}' local/selenium-standalone-provisioner/out.txt
+   aws lambda invoke --function-name "provisionSeleniumStandalones" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"provisionViaLambdaDto":{"items": [{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""}]}}' local/selenium-standalone-provisioner/out.txt
    ```
 4. If you haven't already got `docker stats` running, verify that the containers were started with the following command:  
    ```shell
@@ -77,7 +77,7 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    ```
 3. Terminal 3: Invoke `deprovisionS2Containers` from aws cli. From the `purpleteam-lambda/` root directory, run the following command:  
    ```shell
-   aws lambda invoke --function-name "deprovisionS2Containers" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"deprovisionViaLambdaDto":{"items": ["app-slave", "selenium-standalone"]}}' local/s2-deprovisioner/out.txt
+   aws lambda invoke --function-name "deprovisionS2Containers" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"deprovisionViaLambdaDto":{"items": ["app-emissary", "selenium-standalone"]}}' local/s2-deprovisioner/out.txt
    ```
 4. If you haven't already got `docker stats` running, verify that the containers were brought down with the following command:  
    ```shell
@@ -90,9 +90,9 @@ No local Lambda service needs to be running first, in our case:
 
 1. Run docker-compose-ui as already discussed
 2. Then simply run one of the following [`sam local invoke`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-invoke.html) commands:  
-   * For `provisionAppSlaves`, from the `purpleteam-lambda/` root directory, run the following command:  
+   * For `provisionAppEmissaries`, from the `purpleteam-lambda/` root directory, run the following command:  
      ```shell
-     echo '<same-JSON-payload-as-above>' | sam local invoke --event - --env-vars local/env.json --docker-network compose_pt-net provisionAppSlaves
+     echo '<same-JSON-payload-as-above>' | sam local invoke --event - --env-vars local/env.json --docker-network compose_pt-net provisionAppEmissaries
      ```
    * For `provisionSeleniumStandalones`, from the `purpleteam-lambda/` root directory, run the following command:  
      ```shell
@@ -105,9 +105,9 @@ No local Lambda service needs to be running first, in our case:
 
 1. Run docker-compose-ui as already discussed
 2. Then simply run one of the following commands:  
-   * For `provisionAppSlaves`, from the `purpleteam-lambda/` root directory, run the following command:  
+   * For `provisionAppEmissaries`, from the `purpleteam-lambda/` root directory, run the following command:  
      ```shell
-     echo '<same-JSON-payload-as-above>' | sam local invoke --debug-port 5858 --env-vars local/env.json --event - --docker-network compose_pt-net provisionAppSlaves
+     echo '<same-JSON-payload-as-above>' | sam local invoke --debug-port 5858 --env-vars local/env.json --event - --docker-network compose_pt-net provisionAppEmissaries
      ```
    * For `provisionSeleniumStandalones`, from the `purpleteam-lambda/` root directory, run the following command:  
      ```shell
@@ -121,7 +121,7 @@ No local Lambda service needs to be running first, in our case:
 
 ## Back End
 
-### Lambda `app-slave-provisioner`
+### Lambda `app-emissary-provisioner`
 
 In VS Code:
 
@@ -137,10 +137,10 @@ The VS Code instance needs to be restarted after any changes to the launch.json.
    ```
 3. Terminal 3: Now run the `aws lambda invoke` command as discussed previously from the `purpleteam-lambda/` root directory:  
    ```shell
-    aws lambda invoke --function-name "provisionAppSlaves" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '<same-JSON-payload-as-above>' local/app-slave-provisioner/out.txt
+    aws lambda invoke --function-name "provisionAppEmissaries" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '<same-JSON-payload-as-above>' local/app-emissary-provisioner/out.txt
    ```
 4. In VS Code:  
-  Click on the `app-slave-provisioner` folder, switch to debug (Run) view, click the "app-slave-provisioner (purpleteam-lambda)" project in the drop-down, click debug arrow
+  Click on the `app-emissary-provisioner` folder, switch to debug (Run) view, click the "app-emissary-provisioner (purpleteam-lambda)" project in the drop-down, click debug arrow
 
 ### `app-scanner` and sub-processes
 
@@ -286,7 +286,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
      docker container ls
      ```
      If they haven't been brought down:  
-     * In another terminal from the `purpleteam-s2-containers/app-slave/` directory run the following command:  
+     * In another terminal from the `purpleteam-s2-containers/app-emissary/` directory run the following command:  
        ```shell
        docker-compose down
        ```
@@ -296,7 +296,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
        ```
 
    
-   If you want to keep the Stage Two containers running after a test run to inspect for any reason, simply change the app-scanner's `slave.shutdownSlavesAfterTest` config value to `false`, rebuild the container and run.  
+   If you want to keep the Stage Two containers running after a test run to inspect for any reason, simply change the app-scanner's `emissary.shutdownEmissariesAfterTest` config value to `false`, rebuild the container and run.  
    
    
    If the Stage Two containers have not been brought down, you can also shut down the Stage Two containers with the docker-compose-ui UI. When it's running, you can browse to http://localhost:5000, select the specific Stage Two container project and click the Down button, this is convenient as it brings all of the specific Stage Two containers down with one click.
