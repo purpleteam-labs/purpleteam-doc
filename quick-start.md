@@ -3,7 +3,7 @@
 The quickest way to get up and running with having your Web application under test is to:
 
 1. Obtain a purpleteam-labs `cloud` account (We manage everything in the cloud for you)
-2. Get the [purpleteam CLI](https://github.com/purpleteam-labs/purpleteam) on your system
+2. Get the [purpleteam CLI](https://github.com/purpleteam-labs/purpleteam) on your system and [configure it](https://github.com/purpleteam-labs/purpleteam#configuration)
 3. Create a Build User config (Job). There are some examples [here](https://github.com/purpleteam-labs/purpleteam/tree/main/testResources/jobs)
 4. Start testing: Jump to the [Workflow](#workflow) section
 
