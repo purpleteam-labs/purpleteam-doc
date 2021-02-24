@@ -55,7 +55,7 @@ The main docker-compose file is [orchestrator-testers-compose.yml](https://githu
 ## Docker Network
 
 Before most of the supporting commands such as running docker-compose-ui and sam-cli, the [`compose_pt-net`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/b4502fe50cfe151edb70ef1be376a70c58a78729/compose/orchestrator-testers-compose.yml#L4) Docker network needs to be created.
-You can create this bridge network manually or just run `npm run dc-build` followed by `npm run dc-up` from the purpleteam-orchestrator root directory which as part of the docker-compose file will add the required network. This will also start the containers in the compose file
+You can create this bridge network manually or just run `npm run dc-build` followed by `npm run dc-up` from the purpleteam-orchestrator root directory, which as part of the docker-compose file will add the required network. This will also start the containers in the compose file
 
 ## Environment Variables
 
@@ -65,7 +65,7 @@ We usually add this to a .env file in root directory of the purpleteam-orchestra
 
 `HOST_DIR=</mnt/your-spare-drive/Logs/purpleteam/outcomes>`
 
-This host directory gets written to from the testers and orchestrator and read from the orchestrator. Make sure it has permissions for this.
+This host directory gets written to by the testers and orchestrator and read from the orchestrator. Make sure it has permissions for this.
 
 <br>
 
