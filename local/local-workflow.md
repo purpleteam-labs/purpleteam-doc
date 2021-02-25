@@ -1,10 +1,5 @@
 # local workflow
 
-# Setting up for running emissaries
-
-* Make sure there is a firewall rule to allow the app-scanner container access to the host for `sam local`
-* Make sure host [IP forwarding](https://www.dedoimedo.com/computers/docker-networking.html#mozTocId387645) is [turned on](https://linuxconfig.org/how-to-turn-on-off-ip-forwarding-in-linux)
-
 # Emulating the AWS Lambda service
 
 Leaving `docker stats` running in a terminal is often useful to see which containers are running and how much work they're doing.
@@ -27,6 +22,9 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    ```shell
    aws lambda invoke --function-name "provisionAppEmissaries" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"provisionViaLambdaDto":{"items": [{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""}]}}' local/app-emissary-provisioner/out.txt
    ```
+   
+   Just be aware on your first run that the stage two images are going to be fetched, so it won't be instant
+   
 4. If you haven't already got `docker stats` running, verify that the containers were started with the following command:  
    ```shell
    docker container ls
@@ -53,6 +51,9 @@ We have tried [these launch configurations](https://aws.amazon.com/blogs/develop
    ```shell
    aws lambda invoke --function-name "provisionSeleniumStandalones" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '{"provisionViaLambdaDto":{"items": [{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"firefox", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"lowPrivUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""},{"testSessionId":"adminUser", "browser":"chrome", "appEmissaryContainerName":"", "seleniumContainerName":""}]}}' local/selenium-standalone-provisioner/out.txt
    ```
+   
+   Just be aware on your first run that the stage two images are going to be fetched, so it won't be instant
+   
 4. If you haven't already got `docker stats` running, verify that the containers were started with the following command:  
    ```shell
    docker container ls
@@ -138,7 +139,10 @@ The VS Code instance needs to be restarted after any changes to the launch.json.
 3. Terminal 3: Now run the `aws lambda invoke` command as discussed previously from the `purpleteam-lambda/` root directory:  
    ```shell
     aws lambda invoke --function-name "provisionAppEmissaries" --endpoint-url "http://172.25.0.1:3001" --no-verify-ssl --payload '<same-JSON-payload-as-above>' local/app-emissary-provisioner/out.txt
-   ```
+   ```  
+   
+   Just be aware that if the stage two containers have not yet been fetched that it will take some time to do so
+   
 4. In VS Code:  
   Click on the `app-emissary-provisioner` folder, switch to debug (Run) view, click the "app-emissary-provisioner (purpleteam-lambda)" project in the drop-down, click debug arrow
 
@@ -202,7 +206,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
 
 `docker container ls` is also quite useful for watching port allocations.
 
-1. [docker-compose-ui](https://github.com/francescou/docker-compose-ui) needs to be running.  
+1. [docker-compose-ui](https://github.com/francescou/docker-compose-ui) needs to be running. Running it in it's own terminal is a good idea to see what is happening.  
    
    You need to use the user-defined network already created in order for Lambda function in (what was previously [docker-lambda](https://github.com/lambci/docker-lambda)) the [AWS managed Docker Image](https://aws.amazon.com/blogs/compute/the-aws-serverless-application-model-cli-is-now-generally-available/) to be able to send requests to `docker-compose-ui`. From the `purpleteam-s2-containers/` root directory, run the following command:  
    ```shell
@@ -212,7 +216,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
    Additional resources:
    * docker compose ui [API](https://francescou.github.io/docker-compose-ui/api.html)
    * Once running, `http://localhost:5000/api/v1/projects` will list your projects
-   * The following command will start two containers defined by the `chrome` service in the `purpleteam-s2-containers/selenium-standalone/docker-compose.yml` file  
+   * The following command will start two containers defined by the `chrome` service in the `purpleteam-s2-containers/selenium-standalone/docker-compose.yml` file:  
      ```shell
      curl -X PUT http://localhost:5000/api/v1/services --data '{"service":"chrome","project":"selenium-standalone","num":"2"}' -H 'Content-type: application/json'
      ```
@@ -221,18 +225,18 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
 <!---->
 2. Host Lambda functions:  
    
-   From the `purpleteam-lambda/` root directory run the following [`sam local start-lambda`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-lambda.html) command:  
+   From the `purpleteam-lambda/` root directory run the following [`sam local start-lambda`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-lambda.html) command. Running it in it's own terminal is a good idea to see what is happening:  
    ```shell
    sam local start-lambda --host 172.25.0.1 --env-vars local/env.json --docker-network compose_pt-net
    ```  
    The `--host [gateway IP address of compose_pt-net]` is required to bind sam local to the user-defined bridge network `compose_pt-net` in order for it to be reachable from the app-scanner container.  
    The following are the links that were useful for working this out: [`host.docker.internal`, `extra_hosts` and other comments from here down](https://github.com/docker/for-linux/issues/264#issuecomment-410048049), [docker-host container](https://github.com/qoomon/docker-host/blob/master/entrypoint.sh), [`extra_hosts` reference](https://docs.docker.com/compose/compose-file/#extra_hosts), along with creating the firewall rule as mentioned above, and testing connectivity as mentioned in the [Docker](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-Docker.md#docker-cli) page with shelling into running container
 
-3. Start your SUT (NodeGoat in this example):  
+3. <div id="start_your_sut"></div> Start your SUT (NodeGoat in this example). Running it in it's own terminal is a good idea to see what is happening:  
    
    There are at least two options as mentioned in the [set-up](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-setup.md#your-system-under-test-sut)
 <!---->
-4. Run the docker-compose:   
+4. Run the docker-compose to bring the stage one containers up. Running the following commands for this step in their own terminal is a good idea to see what is happening:   
    
    * Standard:
      1. To build/rebuild images after code changes, from the `purpleteam-orchestrator/` root directory, run the following command:  
@@ -256,7 +260,14 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
 <!---->
 5. Start cli:  
    
-   Depending on whether you are testing against a local copy of your containerised app or a copy hosted on the Internet will determin how you configure the cli (purpleteam) and the command you use to start testing. This example demonstrates the two options mentioned in step 3.  
+   If you are running in the `local` environment and this is the first time you are doing this on a given machine, beware that the stage two images will take some time to fetch. The terminal that you have run docker-compose-ui in will be visibly retrieving these images. There are some things that can go wrong:  
+   
+   * The app-scanner may timeout while testing connectivity of the yet to be running stage two containers. If this happens a timeout `error` message will be logged in the terminal you ran `npm run dc-up` in
+   * We have also seen a `Missing region in config` `Error` logged. If you have [configured the aws cli](https://github.com/purpleteam-labs/purpleteam-lambda) correctly then this is a red herring   
+   
+   On subsequent runs you should not see the above mentioned issues. If this  concerns you, the timeout (found in the app-scanner) can be increased.  
+   
+   Depending on whether you are testing against a local copy of your containerised app or a copy hosted on the Internet will determine how you [configure the cli](https://github.com/purpleteam-labs/purpleteam#configure) (purpleteam). This example demonstrates the two options mentioned in [step 3](#start_your_sut).  
    By specifying the `local` environment, you are instructing the purpleteam CLI to use it's `config/config.local.json`, and communicate with the purpleteam back-end that you have already set-up and have running locally (step 4). If using the `cloud`, the back-end is all taken care of for you. You will also need to specify the location of the SUT in the Build User config (Job) that you provide to the CLI. Examples of these can be found in the [`testResources/jobs`](https://github.com/purpleteam-labs/purpleteam/tree/main/testResources/jobs) directory:  
    1. Locally cloned copy of NodeGoat:  
    The SUT details in your Job will be as follows:  
