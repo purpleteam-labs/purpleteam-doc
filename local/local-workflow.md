@@ -237,7 +237,7 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
 
 3. <div id="start_your_sut"></div> Start your SUT (NodeGoat in this example). Running it in it's own terminal is a good idea to see what is happening:  
    
-   There are at least two options as mentioned in the [set-up](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-setup.md#your-system-under-test-sut)
+   There are at least two options as mentioned in the [set-up](/local/local-setup#your-system-under-test-sut)
 <!---->
 4. Run the docker-compose to bring the stage one containers up. Running the following commands for this step in their own terminal is a good idea to see what is happening:   
    

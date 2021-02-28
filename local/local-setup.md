@@ -2,9 +2,9 @@
 
 The following are the components you will need to set-up if you want to run the entire purpleteam solution `local`ly.
 
-If you can't be bothered with all this work, then use the purpleteam-labs `cloud` environment. Head to the [quick-start page](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/quick-start.md).
+If you can't be bothered with all this work, then use the purpleteam-labs `cloud` environment. Head to the [quick-start page](/quick-start).
 
-If you are using the `local` environment, run through all of the set-up steps in this file and the linked resources. Once you have completed the `local` set-up, continue to the [workflow](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-workflow.md) page to get all of the purpleteam components running `local`ly.
+If you are using the `local` environment, run through all of the set-up steps in this file and the linked resources. Once you have completed the `local` set-up, continue to the [workflow](/local/local-workflow) page to get all of the purpleteam components running `local`ly.
 
 # purpleteam `local` Architecture
 
@@ -91,9 +91,9 @@ This host directory gets written to by the testers and orchestrator and read fro
 
 If you use a firewall, you may have to make sure that the purpleteam components can communicate with each other.
 
-1. [Testers](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/definitions.md) need to communicate with the locally running Lambda service in order to start and stop [stage two containers](https://github.com/purpleteam-labs/purpleteam-s2-containers).  
+1. [Testers](/definitions) need to communicate with the locally running Lambda service in order to start and stop [stage two containers](https://github.com/purpleteam-labs/purpleteam-s2-containers).  
 
-  Communications (TCP) will need to flow from the [app-scanner](https://github.com/purpleteam-labs/purpleteam-app-scanner) container ([`pt-app-scanner-cont`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/4324d85e13ffa637b6da75079e08a3c6595f619d/compose/orchestrator-testers-compose.yml#L40)) bound to the [`pt-net`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/4324d85e13ffa637b6da75079e08a3c6595f619d/compose/orchestrator-testers-compose.yml#L4) (or listed as `compose_pt-net` with `docker network ls`) Docker network IP address of [`172.25.0.120`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/4324d85e13ffa637b6da75079e08a3c6595f619d/compose/orchestrator-testers-compose.yml#L22) - to the IP address and port that local Lambda is listening on (172.25.0.1:3001) which can be seen in the `sam local start-lambda` commands (as seen in the [local-workflow documentation](https://github.com/purpleteam-labs/purpleteam-doc/blob/e761c374d43f94496983b5c7dc4d6d4c69b61f58/local/local-workflow.md)) used to host the lambda functions
+  Communications (TCP) will need to flow from the [app-scanner](https://github.com/purpleteam-labs/purpleteam-app-scanner) container ([`pt-app-scanner-cont`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/4324d85e13ffa637b6da75079e08a3c6595f619d/compose/orchestrator-testers-compose.yml#L40)) bound to the [`pt-net`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/4324d85e13ffa637b6da75079e08a3c6595f619d/compose/orchestrator-testers-compose.yml#L4) (or listed as `compose_pt-net` with `docker network ls`) Docker network IP address of [`172.25.0.120`](https://github.com/purpleteam-labs/purpleteam-orchestrator/blob/4324d85e13ffa637b6da75079e08a3c6595f619d/compose/orchestrator-testers-compose.yml#L22) - to the IP address and port that local Lambda is listening on (172.25.0.1:3001) which can be seen in the `sam local start-lambda` commands (as seen in the [local-workflow documentation](/local/local-workflow)) used to host the lambda functions
 
 ### Host IP Forwarding
 
@@ -131,4 +131,4 @@ Details on installing the purpleteam (CLI) dependencies, configuring and running
 
 <br>
 
-Once completed the `local` set-up, head to the [workflow](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-workflow.md) page to get all of the purpleteam components running `local`ly.
+Once completed the `local` set-up, head to the [workflow](/local/local-workflow) page to get all of the purpleteam components running `local`ly.
