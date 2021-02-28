@@ -38,8 +38,19 @@ This can be due to one or more missing `attackFields` in the Build User config (
 
 Check that your Build User config (Job) contains all of the `attackFields` that your SUT requires to make a successful request.
 
+# "Terminfo parse error" in Terminal
 
+## Descriptioin
 
+Running the purpleteam CLI may produce a `Warning` message: `Terminfo parse error`.
 
+## Cause
 
+This is due to the `TERM` environment variable being incompatible for the CLI dependency blessed.
+
+## Solution
+
+Try setting the `TERM` environment variable to something other than your system default before running the purpleteam CLI. Blessed-contrib provided [some details](https://github.com/yaronn/blessed-contrib/#troubleshooting).
+
+We have had good results with `TERM=xterm`.
 
