@@ -1,5 +1,7 @@
 # local workflow
 
+Make sure you have been through the [set-up](/local/local-setup.md) page and followed all the steps before working through this workflow page.
+
 # Emulating the AWS Lambda service
 
 Leaving `docker stats` running in a terminal is often useful to see which containers are running and how much work they're doing.
@@ -171,19 +173,19 @@ Make sure you have the app-scanner project loaded in VS Code.
 
 Discussed [here](https://glebbahmutov.com/blog/debugging-mocha-using-inspector/)
 
-### CLI
+### [CLI](https://github.com/purpleteam-labs/purpleteam)
 
-From the `purpleteam` root directory you can run the following command:  
+Assuming you have set the relevant environment variables [detailed](https://github.com/purpleteam-labs/purpleteam) for the CLI. From the `purpleteam` root directory you can run the following command:  
 ```shell
 npm run debug
 ```  
-Or if you need to override a NODE_ENV environment variable to say `local` then run:  
+Or if you need to override a NODE_ENV environment variable to `local` then run:  
 ```shell
-env NODE_ENV="local" npm run debug
+NODE_ENV=local npm run debug
 ```  
 Or if you actually want to exercise say the `test` command, run the following command:  
 ```shell
-env NODE_ENV="local" npm run debug -- test
+NODE_ENV=local npm run debug test
 ```   
 In Chromium, open `chrome://inspect` and click "inspect", which will drop you into the first loaded script.
 
@@ -195,10 +197,11 @@ npm run test:debug
 ```  
 Or if you need to override a NODE_ENV environment variable to say `local` then run:  
 ```shell
-env NODE_ENV="local" npm run test:debug
+NODE_ENV=local npm run test:debug
 ```  
 In Chromium, open `chrome://inspect` and click "inspect", which will drop you into the first loaded script.
 
+Also review the run options detailed in the [CLI](https://github.com/purpleteam-labs/purpleteam#run).
 
 # Full system run
 
@@ -286,10 +289,10 @@ Leaving `docker stats` running in a terminal is often useful to see which contai
       "sutProtocol": "https",
       ```
     
-    From the `~/Source/purpleteam/` directory, run the following command:  
+    Assuming you have set the relevant environment variables [detailed](https://github.com/purpleteam-labs/purpleteam) for the CLI. From the purpleteam CLI root directory, run the following command:  
     
      ```shell
-     env NODE_ENV="local" npm start -- test
+     npm start test
      ```
 6. Once the test run has finished, you can check to make sure the Stage Two containers have been brought down. If you are not using `docker stats`:  
    * In one terminal run the following command:  
