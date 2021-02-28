@@ -4,6 +4,8 @@ The following are the components you will need to set-up if you want to run the 
 
 If you can't be bothered with all this work, then use the purpleteam-labs `cloud` environment. Head to the [quick-start page](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/quick-start.md).
 
+If you are using the `local` environment, run through all of the set-up steps in this file and the linked resources. Once you have completed the `local` set-up, continue to the [workflow](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-workflow.md) page to get all of the purpleteam components running `local`ly.
+
 # purpleteam `local` Architecture
 
 The following diagram shows how the purplteam components hang together:
@@ -125,4 +127,8 @@ Details on installing the tls-checker dependencies and configuring once implemen
 
 # purpleteam (CLI)
 
-Details on installing the purpleteam (CLI) dependencies and configuring can be found [here](https://github.com/purpleteam-labs/purpleteam)
+Details on installing the purpleteam (CLI) dependencies, configuring and running can be found [here](https://github.com/purpleteam-labs/purpleteam)
+
+<br>
+
+Once completed the set-up if you are running the `local` environment, head to the [workflow](https://github.com/purpleteam-labs/purpleteam-doc/blob/main/local/local-workflow.md) page to get all of the purpleteam components running `local`ly.
