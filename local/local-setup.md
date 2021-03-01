@@ -78,12 +78,9 @@ The main docker-compose file is [orchestrator-testers-compose.yml](https://githu
 ## Environment Variables
 
 The orchestrator-testers-compose.yml file has a bind mount that expects the `HOST_DIR` environment variable to exist and be set to a host directory of your choosing.
-Make sure you have a source directory set-up and the `HOST_DIR` environment variable has its  value assigned to it.
-We usually add this to a .env file in root directory of the purpleteam-orchestrator.
-
-`HOST_DIR=</mnt/your-spare-drive/Logs/purpleteam/outcomes>`
-
+Make sure you have a source directory set-up and the `HOST_DIR` environment variable has its value assigned to it.
 This host directory gets written to by the testers and orchestrator and read from the orchestrator. This directory needs group `rwx` permissions at least.
+We have created a .env.example file in the orchestrator root directory. Rename this to .env and set any values within appropriately.
 
 ## Set-up for Running Emissaries
 
